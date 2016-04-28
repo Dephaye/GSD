@@ -3,8 +3,9 @@
 #import "AFNetworking.h"
 
 #define HEAD_PORTRAIT_IMAGE_SIZE 160.0f
-#define DEFAULT_HEAD_PORTRAIT_IMAGE @"explore.jpg"
+#define DEFAULT_HEAD_PORTRAIT_IMAGE @"default_header.png"
 #define QINIU_DOMAIN_TOKEN_URL @"http://115.231.183.102:9090/api/quick_start/simple_image_example_token.php"
+#define MF_SERVER_
 #define QINIU_KEY @"headPortraitImageQINIU.png"
 #define QINIU_NSURSERDEFAULTS_HEAD_PORTRAIT_IMAGE_URL_KEY @"HeadPortraitImageURLQINIU"
 
@@ -60,6 +61,9 @@
 
 - (BOOL)uploadHeadPortraitImageToServer:(UIImage *)image {
     BOOL __block result = NO;
+    // 现在用的是AFNetworking 2.x
+    // 下述接口AFHTTPRequestOperationManager在AFNetworking 3.0之后已作废
+    /*
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:QINIU_DOMAIN_TOKEN_URL
        parameters:nil
@@ -72,6 +76,22 @@
               NSLog(@"%@", error);
               result = NO;
           }
+     ];
+     */
+    
+    // AFNetworking 3.0
+    AFHTTPSessionManager *httpManager = [AFHTTPSessionManager manager];
+    [httpManager POST:QINIU_DOMAIN_TOKEN_URL
+           parameters:nil
+              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+                  self.domain = responseObject[@"domain"];
+                  self.token = responseObject[@"uptoken"];
+                  result = [self uploadImageFileToQINIU:[self getHeadPortraitImageFilePath]];
+              }
+              failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error, id  _Nonnull responseObject) {
+                  NSLog(@"%@", error);
+                  result = NO;
+              }
      ];
     
     return result;
@@ -109,9 +129,17 @@
 }
 
 - (BOOL)updateHeadPortraitImageURLToServer:(NSString *)url {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     // 将QINIU返回的图片URL传给服务器
-    
+    AFHTTPSessionManager *httpManager = [AFHTTPSessionManager manager];
+    [httpManager POST:(nonnull NSString *)
+           parameters:<#(nullable id)#>
+              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+                  <#code#>
+              }
+              failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error, id  _Nonnull responseObject) {
+                  <#code#>
+              }];
     
     
     

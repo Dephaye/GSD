@@ -6,7 +6,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.image = [UIImage imageNamed:@"explore.jpg"];
+        self.image = [UIImage imageNamed:@"default_header.png"];
         [self.layer setCornerRadius:CGRectGetHeight([self bounds]) / 2];
         self.layer.masksToBounds = YES;
         self.userInteractionEnabled = YES;
