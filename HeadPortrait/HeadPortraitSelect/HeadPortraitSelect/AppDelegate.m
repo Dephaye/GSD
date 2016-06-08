@@ -20,9 +20,7 @@
     // Override point for customization after application launch.
     
     
-    
-    
-    
+    //ceshi
     
     return YES;
 }
