@@ -14,7 +14,7 @@
 @end
 
 @implementation HeadPortraitSelectVC
-
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.headPortraitImage = [[HeadPortraitView alloc] initWithFrame:CGRectMake(100, 200, 100, 100)];
@@ -26,8 +26,7 @@
     // Do any additional setup after loading the view.
 }
 
-#pragma mark -
-#pragma UIImagePickerController Delegate
+#pragma mark - UIImagePickerController Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     [self.headPortraitModel performSelector:@selector(saveImage:) withObject:image afterDelay:0.5];
