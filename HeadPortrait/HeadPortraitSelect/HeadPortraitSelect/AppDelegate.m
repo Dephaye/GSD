@@ -19,12 +19,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
-    // master
-    
-    
 
-//    application hot-fix
+//    application hot-fix2014333333
     //ceshi0004444
     
     return YES;
